@@ -57,16 +57,20 @@ def main():
         return
 
     r01_files = find_r01_files(search_directory)
+
+    
     
     failed_extractions = []
 
     if not r01_files:
         print("No .r01 files found.")
     else:
-        print(f"Found {len(r01_files)} .r01 files.")
+        amount_of_r01_files = len(r01_files)
+        current_count = 1
+        print(f"Found {amount_of_r01_files} releases.")
         
         for r01_file in r01_files:
-            print(f"Found: {r01_file}")
+            print(f"Found: {os.path.dirname(r01_file)} -- {current_count} of {amount_of_r01_files}")
 
             all_extracted_successfully = True
             files_to_delete = []
@@ -85,6 +89,8 @@ def main():
             else:
                 failed_extractions.append(rar_file)
                 print("Extraction failed, no files were deleted.")
+            
+            current_count += 1
     
     if failed_extractions:
         print(f"Failed to extract {len(failed_extractions)} files:")
